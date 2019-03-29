@@ -66,4 +66,5 @@ Please see the ```/HorizontalCalendarSample-app``` app for a more detailed code 
 - ```setLabelFontStyle``` - to set title/label font(typeface).
 
 - ```setMonthFontStyle``` - to ```Month and Year``` font(typeface).
-
+3.To listen to date events you need to set a listener:
+- ```setOnDateSelectListener```
