@@ -16,7 +16,15 @@ compile 'com.sahana.horizontalcalendarview:horizontalcalendarview:0.11'
 ```
 
 # For Maven users
-
+Add this dependency to your pom.xml:
+```ruby
+<dependency>
+  <groupId>com.sahana.horizontalcalendarview</groupId>
+  <artifactId>horizontalcalendarview</artifactId>
+  <version>0.11</version>
+  <type>pom</type>
+</dependency>
+```
 ##Usage
 
 Please see the /HorizontalCalendarSample-app app for a more detailed code example of how to use the library.
