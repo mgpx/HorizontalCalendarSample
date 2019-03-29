@@ -1,5 +1,29 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+ext {
+    bintrayRepo = 'HorizontalCalendarView'
+    bintrayName = 'com.sahana.horizontalcalendarview'
 
+    publishedGroupId = 'com.sahana.horizontalcalendarview'
+    libraryName = 'HorizontalCalendarView'
+    artifact = 'horizontalcalendarview'
+
+    libraryDescription = 'Custom Horizontal Calendar View Library supports creating a horizontal view of calendar '
+
+    siteUrl = 'https://github.com/B-Sahana/HorizontalCalendarSample'
+    gitUrl = 'https://github.com/B-Sahana/HorizontalCalendarSample.git'
+
+    libraryVersion = '0.11'
+
+    developerId = 'sahanab'
+    developerName = 'Sahana Bandaru'
+    developerEmail = 'bsahana123@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
 android {
     compileSdkVersion 28
 
@@ -23,7 +47,11 @@ android {
     }
 
 }
-
+tasks.withType(Javadoc) {
+    options.addStringOption('Xdoclint:none', '-quiet')
+    options.addStringOption('encoding', 'UTF-8')
+    options.addStringOption('charSet', 'UTF-8')
+}
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:28.0.0'
@@ -31,4 +59,11 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.android.support:recyclerview-v7:28.0.0'
+}
+repositories {
+    mavenCentral()
+}
+if (project.rootProject.file('local.properties').exists()) {
+    apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+    apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
 }
