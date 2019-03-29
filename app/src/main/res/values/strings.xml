@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">HorizontalCalendarSample</string>
+    <string name="label">Your Label Goes Here</string>
 </resources>

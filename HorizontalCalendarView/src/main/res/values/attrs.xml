@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomHorizontalCalendar">
+        <attr name="numOfDays" format="integer" />
+        <attr name="setLabel" format="reference|string" />
+        <attr name="setBgColor" format="reference|color" />
+        <attr name="setTextColor" format="reference|color" />
+        <attr name="setSelectedBgColor" format="reference|color" />
+        <attr name="setSelectedTextColor" format="reference|color" />
+        <attr name="setScrollSpeed" format="integer" />
+        <attr name="setLabelColor" format="reference|color" />
+        <attr name="setMonthColor" format="reference|color" />
+        <attr name="setLabelTextSize" format="integer" />
+        <attr name="setMonthTextSize" format="integer" />
+        <attr name="setLabelFontStyle" format="string|reference" />
+        <attr name="setMonthFontStyle" format="string|reference" />
+    </declare-styleable>
+</resources>
