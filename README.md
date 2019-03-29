@@ -1,6 +1,6 @@
 # HorizontalCalendarSample
 HorizontalCalendarSample is an Android library for creating horizontal view for Calendar
-
+![](cs1.gif)
 # Features
 - Customizable text color and size ,background color,number of days to display
 - minSdkVersion 14
