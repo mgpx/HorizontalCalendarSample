@@ -5,7 +5,7 @@ HorizontalCalendarSample is an Android library for creating horizontal view for 
 - Customizable text color and size ,background color,number of days to display
 - minSdkVersion 14
 
-##Installation
+## Installation
 
 Latest version of the library can be found on Maven Central.
 
@@ -25,11 +25,11 @@ Add this dependency to your ```pom.xml```:
   <type>pom</type>
 </dependency>
 ```
-##Usage
+## Usage
 
-Please see the /HorizontalCalendarSample-app app for a more detailed code example of how to use the library.
+Please see the ```/HorizontalCalendarSample-app``` app for a more detailed code example of how to use the library.
 
-1.Add the HorizontalCalendar view to the layout you want to show.
+1.Add the ```HorizontalCalendar``` view to the layout you want to show.
 ```
 <com.sahana.horizontalcalendarview.CustomHorizontalCalendar
         android:id="@+id/customHorizontal"
@@ -41,7 +41,5 @@ Please see the /HorizontalCalendarSample-app app for a more detailed code exampl
         app:setLabel="@string/label" />
  ```      
 2.Configure attributes.
-
-numOfDays - to set number of days to display in horizontal calendar (default: 60 days).
-
-setLabel - to set your title/label to view.
+- numOfDays - to set number of days to display in horizontal calendar (default: 60 days).
+- setLabel - to set your title/label to view.
