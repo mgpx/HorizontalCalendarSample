@@ -10,13 +10,13 @@ HorizontalCalendarSample is an Android library for creating horizontal view for 
 Latest version of the library can be found on Maven Central.
 
 # For Gradle users
-Open your build.gradle Then, include the library as dependency:
+Open your ```build.gradle``` Then, include the library as dependency:
 ```ruby
 compile 'com.sahana.horizontalcalendarview:horizontalcalendarview:0.11'
 ```
 
 # For Maven users
-Add this dependency to your pom.xml:
+Add this dependency to your ```pom.xml```:
 ```ruby
 <dependency>
   <groupId>com.sahana.horizontalcalendarview</groupId>
