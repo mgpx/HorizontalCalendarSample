@@ -48,7 +48,7 @@ Please see the ```/HorizontalCalendarSample-app``` app for a more detailed code 
 - ```setSelectedBgColor``` - to set backgroundcolor when user selected (default: sky blue (#4ba6bb) ).
 - ```setSelectedTextColor``` - to set text color when user selected (default: white ).
 - ```setScrollSpeed``` - to set scroll speed of view when pressed for long on arrow marks\icons (default: 30).
-       - If you want scroll speed to be slow then set the ```setScrollSpeed``` value below 30 (only postive Integers allowed).
+     - If you want scroll speed to be slow then set the ```setScrollSpeed``` value below 30 (only postive Integers allowed).
 - ```setMonthColor``` - to set ```Month and Year``` text color (default: black).
 - ```setLabelTextSize``` - to set title/label text size in SP (default: 13sp) .
 - ```setMonthTextSize``` - to ```Month and Year``` text size in SP (default: 15sp) ..
