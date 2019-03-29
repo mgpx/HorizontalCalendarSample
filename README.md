@@ -43,12 +43,12 @@ Please see the ```/HorizontalCalendarSample-app``` app for a more detailed code 
 2.Configure attributes.
 - ```numOfDays``` - to set number of days to display in horizontal calendar (default: 60 days).
 - ```setLabel``` - to set your title/label to view.
-- ```setBgColor``` - to set backgroundcolor when user not selected  (default:light gray(#f2f2f2)).
-- ```setTextColor``` - to set text color when user not selected (default:drak gray(#FF858585)).
-- ```setSelectedBgColor``` - to set backgroundcolor when user selected (default:sky blue(#4ba6bb)).
-- ```setSelectedTextColor``` - to set text color when user selected (default:white).
+- ```setBgColor``` - to set backgroundcolor when user not selected  (default: light gray (#f2f2f2) ).
+- ```setTextColor``` - to set text color when user not selected (default: drak gray (#FF858585) ).
+- ```setSelectedBgColor``` - to set backgroundcolor when user selected (default: sky blue (#4ba6bb) ).
+- ```setSelectedTextColor``` - to set text color when user selected (default: white ).
 - ```setScrollSpeed``` - to set scroll speed of view when pressed for long on arrow marks\icons (default: 30).
- -If you want scroll speed to be slow then set the ```setScrollSpeed``` value below 30 (only postive Integers allowed).
+ - If you want scroll speed to be slow then set the ```setScrollSpeed``` value below 30 (only postive Integers allowed).
 - ```setMonthColor``` - to set ```Month and Year``` text color (default: black).
 - ```setLabelTextSize``` - to set title/label text size in SP (default: 13sp) .
 - ```setMonthTextSize``` - to ```Month and Year``` text size in SP (default: 15sp) ..
