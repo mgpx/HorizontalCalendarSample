@@ -81,4 +81,5 @@ Please see the ```/HorizontalCalendarSample-app``` app for a more detailed code 
 
 4. If you want to set label dynamically  call below method:
 - ```setLabel(String labelName)```
+
  ```mCustomHorizontalCalendar.setLabel("Your Label Name");```
