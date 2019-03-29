@@ -66,5 +66,15 @@ Please see the ```/HorizontalCalendarSample-app``` app for a more detailed code 
 - ```setLabelFontStyle``` - to set title/label font(typeface).
 
 - ```setMonthFontStyle``` - to ```Month and Year``` font(typeface).
+
 3.To listen to date events you need to set a listener:
-- ```setOnDateSelectListener```
+- ```setOnDateSelectListener``` - by calling this.
+```
+        mCustomHorizontalCalendar.setOnDateSelectListener(new OnHorizontalDateSelectListener() {
+            @Override
+            public void onDateClick(DateModel dateModel) {
+                Log.d("date", dateModel != null ? dateModel.month + dateModel.day + dateModel.dayOfWeek + dateModel.year : "");
+
+            }
+        });
+```
