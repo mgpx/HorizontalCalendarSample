@@ -11,7 +11,9 @@ Latest version of the library can be found on Maven Central.
 
 # For Gradle users
 Open your build.gradle Then, include the library as dependency:
-
+```ruby
+compile 'com.sahana.horizontalcalendarview:horizontalcalendarview:0.11'
+```
 
 # For Maven users
 
