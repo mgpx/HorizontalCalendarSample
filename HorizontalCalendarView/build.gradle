@@ -1,13 +1,14 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
+
 ext {
     bintrayRepo = 'HorizontalCalendarView'
-    bintrayName = 'com.sahana.horizontalcalendarview'
+    bintrayName = 'HorizontalCalendarView'
 
-    publishedGroupId = 'com.sahana.horizontalcalendarview'
+    publishedGroupId = 'com.sahana.bandaru.horizontalcalendarview'
     libraryName = 'HorizontalCalendarView'
-    artifact = 'horizontalcalendarview'
+    artifact = 'HorizontalCalendarView'
 
     libraryDescription = 'Custom Horizontal Calendar View Library supports creating a horizontal view of calendar '
 
@@ -24,6 +25,7 @@ ext {
     licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
     allLicenses = ["Apache-2.0"]
 }
+
 android {
     compileSdkVersion 28
 
@@ -63,7 +65,5 @@ dependencies {
 repositories {
     mavenCentral()
 }
-if (project.rootProject.file('local.properties').exists()) {
-    apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
-    apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
-}
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
