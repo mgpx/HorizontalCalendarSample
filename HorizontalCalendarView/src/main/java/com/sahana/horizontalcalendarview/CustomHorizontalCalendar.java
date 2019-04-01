@@ -148,9 +148,11 @@ public class CustomHorizontalCalendar extends RelativeLayout {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                View centerView = snapHelper.findSnapView(recyclerView.getLayoutManager());
-                if (recyclerView.getLayoutManager() != null && centerView != null)
-                    mCenterChildPosition = recyclerView.getLayoutManager().getPosition(centerView);
+                if (recyclerView.getLayoutManager() != null) {
+                    View centerView = snapHelper.findSnapView(recyclerView.getLayoutManager());
+                    if (centerView != null)
+                        mCenterChildPosition = recyclerView.getLayoutManager().getPosition(centerView);
+                }
                 if (mLayoutClickListener != null)
                     mLayoutClickListener.onLayoutClick(mCenterChildPosition);
 
@@ -159,10 +161,11 @@ public class CustomHorizontalCalendar extends RelativeLayout {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-
-                View centerView = snapHelper.findSnapView(recyclerView.getLayoutManager());
-                if (recyclerView.getLayoutManager() != null && centerView != null)
-                    mCenterChildPosition = recyclerView.getLayoutManager().getPosition(centerView);
+                if (recyclerView.getLayoutManager() != null) {
+                    View centerView = snapHelper.findSnapView(recyclerView.getLayoutManager());
+                    if (centerView != null)
+                        mCenterChildPosition = recyclerView.getLayoutManager().getPosition(centerView);
+                }
                 if (mLayoutClickListener != null)
                     mLayoutClickListener.onLayoutClick(mCenterChildPosition);
 

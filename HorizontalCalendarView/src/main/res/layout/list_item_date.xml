@@ -5,7 +5,7 @@
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
-        android:layout_width="52dp"
+        android:layout_width="54dp"
         android:layout_height="50dp"
         android:visibility="visible">
 
