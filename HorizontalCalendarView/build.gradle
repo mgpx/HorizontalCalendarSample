@@ -1,14 +1,16 @@
 plugins {
-    id "com.github.dcendents.android-maven" version "1.5"
-}
-
-plugins {
     id "com.jfrog.bintray" version "1.7.3"
 }
 
+plugins {
+    id "com.github.dcendents.android-maven" version "1.5"
+}
+
+
+
 apply plugin: 'com.android.library'
-apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
 
 ext {
     bintrayRepo = 'HorizontalCalendarView'
@@ -16,7 +18,7 @@ ext {
 
     publishedGroupId = 'com.sahana.horizontalcalendarview'
     libraryName = 'HorizontalCalendarView'
-    artifact = 'HorizontalCalendarView'
+    artifact = 'horizontalcalendarview'
 
     libraryDescription = 'Custom Horizontal Calendar View Library supports creating a horizontal view of calendar '
 
@@ -25,7 +27,7 @@ ext {
 
     libraryVersion = '0.11'
 
-    developerId = 'sahanab'
+    developerId = 'B-Sahana'
     developerName = 'Sahana Bandaru'
     developerEmail = 'bsahana123@gmail.com'
 
@@ -33,19 +35,20 @@ ext {
     licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
     allLicenses = ["Apache-2.0"]
 }
+version = libraryVersion
 
 android {
     compileSdkVersion 27
 
-
+    lintOptions {
+        abortOnError false
+    }
 
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 27
         versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        versionName version
 
     }
 
@@ -61,11 +64,41 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:recyclerview-v7:27.1.1'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.android.support:design:27.1.1'
     implementation 'com.android.support:support-v4:27.1.1'
+}
+
+// Bintray
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+
+    configurations = ['archives']
+    pkg {
+        repo = bintrayRepo
+        name = bintrayName
+        desc = libraryDescription
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = allLicenses
+        publish = true
+        publicDownloadNumbers = true
+        override = true
+
+        version {
+            desc = libraryDescription
+            name = libraryVersion
+            vcsTag = 'v' + libraryVersion
+            gpg {
+                sign = true //Determines whether to GPG sign the files. The default is false
+                // passphrase = properties.getProperty("bintray.gpg.password")
+                //Optional. The passphrase for GPG signing'
+            }
+        }
+    }
 }
 
 apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
