@@ -2,6 +2,7 @@ package com.sahana.horizontalcalendarview;
 
 import android.app.Activity;
 import android.content.res.Resources;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -29,13 +30,14 @@ public class HorizontalDateAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         mOnHorizontalDateSelectListener = onHorizontalDateSelectListener;
     }
 
+    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new DateViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_date, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof DateViewHolder) {
             try {
                 DisplayMetrics displaymetrics = new DisplayMetrics();

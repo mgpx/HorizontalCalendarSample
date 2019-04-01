@@ -1,9 +1,11 @@
 package com.sahana.horizontalcalendarview;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
@@ -129,6 +131,7 @@ public class CustomHorizontalCalendar extends RelativeLayout {
         setData();
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void setData() {
         if (mHorizontalDateAdapter == null)
             mHorizontalDateAdapter = new HorizontalDateAdapter();
@@ -143,21 +146,23 @@ public class CustomHorizontalCalendar extends RelativeLayout {
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
             @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 View centerView = snapHelper.findSnapView(recyclerView.getLayoutManager());
-                mCenterChildPosition = recyclerView.getLayoutManager().getPosition(centerView);
+                if (recyclerView.getLayoutManager() != null && centerView != null)
+                    mCenterChildPosition = recyclerView.getLayoutManager().getPosition(centerView);
                 if (mLayoutClickListener != null)
                     mLayoutClickListener.onLayoutClick(mCenterChildPosition);
 
             }
 
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
                 View centerView = snapHelper.findSnapView(recyclerView.getLayoutManager());
-                mCenterChildPosition = recyclerView.getLayoutManager().getPosition(centerView);
+                if (recyclerView.getLayoutManager() != null && centerView != null)
+                    mCenterChildPosition = recyclerView.getLayoutManager().getPosition(centerView);
                 if (mLayoutClickListener != null)
                     mLayoutClickListener.onLayoutClick(mCenterChildPosition);
 
@@ -171,7 +176,8 @@ public class CustomHorizontalCalendar extends RelativeLayout {
                 if (mHorizontalDateAdapter.row_index == mLinearLayoutManager.findFirstVisibleItemPosition() || mHorizontalDateAdapter.row_index == mLinearLayoutManager.findFirstVisibleItemPosition() + 1 || mHorizontalDateAdapter.row_index == mLinearLayoutManager.findLastVisibleItemPosition() - 1) {
                     mCenterChildPosition = mHorizontalDateAdapter.row_index + 1;
                 } else if (mHorizontalDateAdapter.row_index == mLinearLayoutManager.findLastVisibleItemPosition()) {
-                    ((LinearLayoutManager) mRecyclerView.getLayoutManager()).scrollToPositionWithOffset(mHorizontalDateAdapter.row_index + 1, 0);
+                    if (((LinearLayoutManager) mRecyclerView.getLayoutManager()) != null)
+                        ((LinearLayoutManager) mRecyclerView.getLayoutManager()).scrollToPositionWithOffset(mHorizontalDateAdapter.row_index + 1, 0);
                 } else {
                     if (mCenterChildPosition >= 2)
                         mRecyclerView.scrollToPosition(mLinearLayoutManager.findLastVisibleItemPosition() + 1);
@@ -192,7 +198,8 @@ public class CustomHorizontalCalendar extends RelativeLayout {
                 if (mHorizontalDateAdapter.row_index == mLinearLayoutManager.findLastVisibleItemPosition() || mHorizontalDateAdapter.row_index == mLinearLayoutManager.findLastVisibleItemPosition() - 1 || mHorizontalDateAdapter.row_index == mLinearLayoutManager.findFirstVisibleItemPosition() + 1) {
                     mCenterChildPosition = mHorizontalDateAdapter.row_index - 1;
                 } else if (mHorizontalDateAdapter.row_index == mLinearLayoutManager.findFirstVisibleItemPosition()) {
-                    ((LinearLayoutManager) mRecyclerView.getLayoutManager()).scrollToPositionWithOffset(mHorizontalDateAdapter.row_index - 3, 0);
+                    if (((LinearLayoutManager) mRecyclerView.getLayoutManager()) != null)
+                        ((LinearLayoutManager) mRecyclerView.getLayoutManager()).scrollToPositionWithOffset(mHorizontalDateAdapter.row_index - 3, 0);
                 } else {
                     if (mCenterChildPosition <= (mHorizontalDateAdapter.getItemCount() - 3))
                         mRecyclerView.scrollToPosition(mLinearLayoutManager.findFirstVisibleItemPosition() - 1);
