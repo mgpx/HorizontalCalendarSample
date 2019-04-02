@@ -53,7 +53,7 @@
         android:layout_marginRight="5dp"
         android:src="@drawable/ic_chevron_left_black_24dp"
         android:tint="@color/selector_image_color"
-        tools:ignore="ContentDescription" />
+        />
 
 
     <ImageView
