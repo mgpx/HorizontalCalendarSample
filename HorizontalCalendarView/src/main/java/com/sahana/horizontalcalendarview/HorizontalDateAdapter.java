@@ -2,9 +2,6 @@ package com.sahana.horizontalcalendarview;
 
 import android.app.Activity;
 import android.content.res.Resources;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,17 +13,21 @@ import com.sahana.horizontalcalendarview.model.DateModel;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
+
 /**
  * Created by SahanaB on 09/09/18.
  */
 public class HorizontalDateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements CustomHorizontalCalendar.LayoutClickListener {
 
     private List<DateModel> mValues;
-    protected int row_index = -1;
+    public int mRowIndex = -1;
     private CustomHorizontalCalendar mCustomHorizontalCalendar;
     private OnHorizontalDateSelectListener mOnHorizontalDateSelectListener;
 
-    protected void setOnHorizontalDateSelectListener(OnHorizontalDateSelectListener onHorizontalDateSelectListener) {
+    public void setOnHorizontalDateSelectListener(OnHorizontalDateSelectListener onHorizontalDateSelectListener) {
         mOnHorizontalDateSelectListener = onHorizontalDateSelectListener;
     }
 
@@ -61,7 +62,7 @@ public class HorizontalDateAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         return mValues.size();
     }
 
-    protected void setData(List<DateModel> values, CustomHorizontalCalendar customHorizontalCalendar) {
+    public void setData(List<DateModel> values, CustomHorizontalCalendar customHorizontalCalendar) {
         mValues = values;
         mCustomHorizontalCalendar = customHorizontalCalendar;
         notifyDataSetChanged();
@@ -69,9 +70,9 @@ public class HorizontalDateAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public void onLayoutClick(int position) {
-        row_index = position;
+        mRowIndex = position;
         notifyDataSetChanged();
-        notifyItemChanged(row_index);
+        notifyItemChanged(mRowIndex);
     }
 
     private class DateViewHolder extends RecyclerView.ViewHolder {
@@ -91,7 +92,7 @@ public class HorizontalDateAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         private void setData(final DateModel values, int position) {
             dateTextView.setText(values.day);
             dayOfTheWeekTextView.setText(values.dayOfWeek);
-            if (row_index == position) {
+            if (mRowIndex == position) {
                 relativeLayout.setBackgroundResource(mCustomHorizontalCalendar.mSelectedBgResourceId);
                 dateTextView.setTextColor(ContextCompat.getColor(itemView.getContext(), mCustomHorizontalCalendar.mSelectedTextColorResourceId));
                 dayOfTheWeekTextView.setTextColor(ContextCompat.getColor(itemView.getContext(), mCustomHorizontalCalendar.mSelectedTextColorResourceId));

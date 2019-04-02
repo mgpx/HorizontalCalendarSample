@@ -5,11 +5,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.LinearSnapHelper;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SnapHelper;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -25,6 +20,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SnapHelper;
+
 
 /**
  * Created by SahanaB on 09/09/18.
@@ -43,11 +45,11 @@ public class CustomHorizontalCalendar extends RelativeLayout {
     private OnHorizontalDateSelectListener mOnHorizontalDateSelectListener;
     private int mNoOfDays;
     private String mLabel;
-    protected int mBgResourceId;
-    protected int mSelectedBgResourceId;
-    protected int mTextColorResourceId;
-    protected int mSelectedTextColorResourceId;
-    private int mScroolSpeed;
+    public int mBgResourceId;
+    public int mSelectedBgResourceId;
+    public int mTextColorResourceId;
+    public int mSelectedTextColorResourceId;
+    private int mScrollSpeed;
 
     public void setOnDateSelectListener(OnHorizontalDateSelectListener onHorizontalDateSelectListener) {
         mOnHorizontalDateSelectListener = onHorizontalDateSelectListener;
@@ -90,7 +92,7 @@ public class CustomHorizontalCalendar extends RelativeLayout {
         mMonthAndDateTextView = findViewById(R.id.monthAndDateTextView);
         if (attrs == null) return;
         TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.CustomHorizontalCalendar, 0, 0);
-        mScroolSpeed = typedArray.getInteger(R.styleable.CustomHorizontalCalendar_setScrollSpeed, 30);
+        mScrollSpeed = typedArray.getInteger(R.styleable.CustomHorizontalCalendar_setScrollSpeed, 30);
         mNoOfDays = typedArray.getInteger(R.styleable.CustomHorizontalCalendar_numOfDays, 60);
         mLabel = typedArray.getString(R.styleable.CustomHorizontalCalendar_setLabel);
         mBgResourceId = typedArray.getResourceId(R.styleable.CustomHorizontalCalendar_setBgColor, R.drawable.rect_dark_gray);
@@ -171,16 +173,14 @@ public class CustomHorizontalCalendar extends RelativeLayout {
 
             }
         });
-        mRightArrowImageView.setOnClickListener(new OnClickListener()
-
-        {
+        mRightArrowImageView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mHorizontalDateAdapter.row_index == mLinearLayoutManager.findFirstVisibleItemPosition() || mHorizontalDateAdapter.row_index == mLinearLayoutManager.findFirstVisibleItemPosition() + 1 || mHorizontalDateAdapter.row_index == mLinearLayoutManager.findLastVisibleItemPosition() - 1) {
-                    mCenterChildPosition = mHorizontalDateAdapter.row_index + 1;
-                } else if (mHorizontalDateAdapter.row_index == mLinearLayoutManager.findLastVisibleItemPosition()) {
+                if (mHorizontalDateAdapter.mRowIndex == mLinearLayoutManager.findFirstVisibleItemPosition() || mHorizontalDateAdapter.mRowIndex == mLinearLayoutManager.findFirstVisibleItemPosition() + 1 || mHorizontalDateAdapter.mRowIndex == mLinearLayoutManager.findLastVisibleItemPosition() - 1) {
+                    mCenterChildPosition = mHorizontalDateAdapter.mRowIndex + 1;
+                } else if (mHorizontalDateAdapter.mRowIndex == mLinearLayoutManager.findLastVisibleItemPosition()) {
                     if (((LinearLayoutManager) mRecyclerView.getLayoutManager()) != null)
-                        ((LinearLayoutManager) mRecyclerView.getLayoutManager()).scrollToPositionWithOffset(mHorizontalDateAdapter.row_index + 1, 0);
+                        ((LinearLayoutManager) mRecyclerView.getLayoutManager()).scrollToPositionWithOffset(mHorizontalDateAdapter.mRowIndex + 1, 0);
                 } else {
                     if (mCenterChildPosition >= 2)
                         mRecyclerView.scrollToPosition(mLinearLayoutManager.findLastVisibleItemPosition() + 1);
@@ -193,16 +193,14 @@ public class CustomHorizontalCalendar extends RelativeLayout {
 
             }
         });
-        mLeftArrowImageView.setOnClickListener(new OnClickListener()
-
-        {
+        mLeftArrowImageView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mHorizontalDateAdapter.row_index == mLinearLayoutManager.findLastVisibleItemPosition() || mHorizontalDateAdapter.row_index == mLinearLayoutManager.findLastVisibleItemPosition() - 1 || mHorizontalDateAdapter.row_index == mLinearLayoutManager.findFirstVisibleItemPosition() + 1) {
-                    mCenterChildPosition = mHorizontalDateAdapter.row_index - 1;
-                } else if (mHorizontalDateAdapter.row_index == mLinearLayoutManager.findFirstVisibleItemPosition()) {
+                if (mHorizontalDateAdapter.mRowIndex == mLinearLayoutManager.findLastVisibleItemPosition() || mHorizontalDateAdapter.mRowIndex == mLinearLayoutManager.findLastVisibleItemPosition() - 1 || mHorizontalDateAdapter.mRowIndex == mLinearLayoutManager.findFirstVisibleItemPosition() + 1) {
+                    mCenterChildPosition = mHorizontalDateAdapter.mRowIndex - 1;
+                } else if (mHorizontalDateAdapter.mRowIndex == mLinearLayoutManager.findFirstVisibleItemPosition()) {
                     if (((LinearLayoutManager) mRecyclerView.getLayoutManager()) != null)
-                        ((LinearLayoutManager) mRecyclerView.getLayoutManager()).scrollToPositionWithOffset(mHorizontalDateAdapter.row_index - 3, 0);
+                        ((LinearLayoutManager) mRecyclerView.getLayoutManager()).scrollToPositionWithOffset(mHorizontalDateAdapter.mRowIndex - 3, 0);
                 } else {
                     if (mCenterChildPosition <= (mHorizontalDateAdapter.getItemCount() - 3))
                         mRecyclerView.scrollToPosition(mLinearLayoutManager.findFirstVisibleItemPosition() - 1);
@@ -221,7 +219,7 @@ public class CustomHorizontalCalendar extends RelativeLayout {
         final Handler handler = new Handler();
         final Runnable longPressedLeft = new Runnable() {
             public void run() {
-                mRecyclerView.scrollBy(-mScroolSpeed, 0);
+                mRecyclerView.scrollBy(-mScrollSpeed, 0);
                 handler.post(this);
             }
         };
@@ -245,7 +243,7 @@ public class CustomHorizontalCalendar extends RelativeLayout {
 
         final Runnable longPressedRight = new Runnable() {
             public void run() {
-                mRecyclerView.scrollBy(mScroolSpeed, 0);
+                mRecyclerView.scrollBy(mScrollSpeed, 0);
                 handler.post(this);
             }
         };
@@ -270,7 +268,7 @@ public class CustomHorizontalCalendar extends RelativeLayout {
 
     }
 
-    protected interface LayoutClickListener {
+    public interface LayoutClickListener {
         void onLayoutClick(int position);
     }
 
@@ -300,7 +298,7 @@ public class CustomHorizontalCalendar extends RelativeLayout {
         return "";
     }
 
-    private static String getMonth(int month) {
+    private String getMonth(int month) {
         String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
         return monthNames[month];
     }
