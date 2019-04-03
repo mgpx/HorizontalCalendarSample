@@ -5,6 +5,11 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.LinearSnapHelper;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SnapHelper;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -20,13 +25,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.LinearSnapHelper;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.SnapHelper;
-
 
 /**
  * Created by SahanaB on 09/09/18.
@@ -45,10 +43,10 @@ public class CustomHorizontalCalendar extends RelativeLayout {
     private OnHorizontalDateSelectListener mOnHorizontalDateSelectListener;
     private int mNoOfDays;
     private String mLabel;
-    public int mBgResourceId;
-    public int mSelectedBgResourceId;
-    public int mTextColorResourceId;
-    public int mSelectedTextColorResourceId;
+    protected int mBgResourceId;
+    protected int mSelectedBgResourceId;
+    protected int mTextColorResourceId;
+    protected int mSelectedTextColorResourceId;
     private int mScrollSpeed;
 
     public void setOnDateSelectListener(OnHorizontalDateSelectListener onHorizontalDateSelectListener) {
@@ -173,7 +171,9 @@ public class CustomHorizontalCalendar extends RelativeLayout {
 
             }
         });
-        mRightArrowImageView.setOnClickListener(new OnClickListener() {
+        mRightArrowImageView.setOnClickListener(new OnClickListener()
+
+        {
             @Override
             public void onClick(View v) {
                 if (mHorizontalDateAdapter.mRowIndex == mLinearLayoutManager.findFirstVisibleItemPosition() || mHorizontalDateAdapter.mRowIndex == mLinearLayoutManager.findFirstVisibleItemPosition() + 1 || mHorizontalDateAdapter.mRowIndex == mLinearLayoutManager.findLastVisibleItemPosition() - 1) {
@@ -193,7 +193,9 @@ public class CustomHorizontalCalendar extends RelativeLayout {
 
             }
         });
-        mLeftArrowImageView.setOnClickListener(new OnClickListener() {
+        mLeftArrowImageView.setOnClickListener(new OnClickListener()
+
+        {
             @Override
             public void onClick(View v) {
                 if (mHorizontalDateAdapter.mRowIndex == mLinearLayoutManager.findLastVisibleItemPosition() || mHorizontalDateAdapter.mRowIndex == mLinearLayoutManager.findLastVisibleItemPosition() - 1 || mHorizontalDateAdapter.mRowIndex == mLinearLayoutManager.findFirstVisibleItemPosition() + 1) {
@@ -268,7 +270,7 @@ public class CustomHorizontalCalendar extends RelativeLayout {
 
     }
 
-    public interface LayoutClickListener {
+    protected interface LayoutClickListener {
         void onLayoutClick(int position);
     }
 
@@ -298,7 +300,7 @@ public class CustomHorizontalCalendar extends RelativeLayout {
         return "";
     }
 
-    private String getMonth(int month) {
+    private  String getMonth(int month) {
         String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
         return monthNames[month];
     }
