@@ -14,7 +14,7 @@ apply plugin: 'com.github.dcendents.android-maven'
 
 ext {
     bintrayRepo = 'HorizontalCalendarView'
-    bintrayName = 'HorizontalCalendarView'
+    bintrayName = 'HorizontalCalendarSample'
 
     publishedGroupId = 'com.sahana.horizontalcalendarview'
     libraryName = 'HorizontalCalendarView'
@@ -25,7 +25,7 @@ ext {
     siteUrl = 'https://github.com/B-Sahana/HorizontalCalendarSample'
     gitUrl = 'https://github.com/B-Sahana/HorizontalCalendarSample.git'
 
-    libraryVersion = '0.12'
+    libraryVersion = '1.0.1'
 
     developerId = 'B-Sahana'
     developerName = 'Sahana Bandaru'
@@ -44,7 +44,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 28
         versionCode 1
-        versionName version
+        versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
