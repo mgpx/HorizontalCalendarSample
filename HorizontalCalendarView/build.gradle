@@ -56,6 +56,15 @@ android {
     }
     buildToolsVersion '28.0.3'
 }
+configurations {
+    javadocDeps
+}
+tasks.withType(Javadoc) {
+    options.addStringOption('Xdoclint:none', '-quiet')
+    options.addStringOption('encoding', 'UTF-8')
+    options.addStringOption('charSet', 'UTF-8')
+}
+
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
