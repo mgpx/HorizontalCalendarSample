@@ -93,7 +93,8 @@ Please see the ```/HorizontalCalendarSample-app``` app for a more detailed code 
  
 # License
 
-```Copyright 2019 Sahana B
+``` 
+Copyright 2019 Sahana B
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
