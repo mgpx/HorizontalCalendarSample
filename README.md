@@ -18,7 +18,7 @@ Latest version of the library can be found on Maven Central.
 Open your ```build.gradle``` Then, include the library as dependency:
 
 ```    
-implementation 'com.android.support:recyclerview-v7:27.1.1'
+implementation 'com.android.support:recyclerview-v7:{yourVersion}'
 implementation 'com.sahana.horizontalcalendarview:HorizontalCalendarView:0.11'
 ```
 
