@@ -25,7 +25,7 @@ ext {
     siteUrl = 'https://github.com/B-Sahana/HorizontalCalendarSample'
     gitUrl = 'https://github.com/B-Sahana/HorizontalCalendarSample.git'
 
-    libraryVersion = '0.12'
+    libraryVersion = '1.0.1'
 
     developerId = 'B-Sahana'
     developerName = 'Sahana Bandaru'
@@ -42,8 +42,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 27
-        versionCode 2
-        versionName "1.1"
+        versionCode 1
+        versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
@@ -120,7 +120,6 @@ bintray {
     user = properties.getProperty("bintray.user")
     key = properties.getProperty("bintray.apikey")
 
-    configurations = ['archives']
     pkg {
         repo = bintrayRepo
         name = bintrayName
