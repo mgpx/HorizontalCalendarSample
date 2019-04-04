@@ -29,6 +29,20 @@
         android:textStyle="bold"
         tools:text="August 2018" />
 
+    <ImageView
+        android:id="@+id/leftArrow"
+        android:layout_width="30dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/monthAndDateTextView"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/ic_chevron_left_black_24dp"
+        android:tint="@color/selector_image_color" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="wrap_content"
@@ -42,21 +56,6 @@
         app:fastScrollEnabled="false" />
 
     <ImageView
-        android:id="@+id/leftArrow"
-        android:layout_width="30dp"
-        android:layout_height="40dp"
-        android:layout_below="@id/monthAndDateTextView"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
-        android:src="@drawable/ic_chevron_left_black_24dp"
-        android:tint="@color/selector_image_color"
-        />
-
-
-    <ImageView
         android:id="@+id/rightArrow"
         android:layout_width="30dp"
         android:layout_height="40dp"
@@ -66,6 +65,9 @@
         android:layout_marginStart="5dp"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="8dp"
+        android:contentDescription="@string/todo"
         android:src="@drawable/ic_chevron_right_black_24dp"
         android:tint="@color/selector_image_color" />
+
+
 </RelativeLayout>
