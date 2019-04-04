@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.os.Handler;
-import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
@@ -41,8 +41,6 @@ public class CustomHorizontalCalendar extends RelativeLayout {
     private int mCenterChildPosition = -1;
     private LayoutClickListener mLayoutClickListener;
     private OnHorizontalDateSelectListener mOnHorizontalDateSelectListener;
-    private int mNoOfDays;
-    private String mLabel;
     protected int mBgResourceId;
     protected int mSelectedBgResourceId;
     protected int mTextColorResourceId;
@@ -91,17 +89,17 @@ public class CustomHorizontalCalendar extends RelativeLayout {
         if (attrs == null) return;
         TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.CustomHorizontalCalendar, 0, 0);
         mScrollSpeed = typedArray.getInteger(R.styleable.CustomHorizontalCalendar_setScrollSpeed, 30);
-        mNoOfDays = typedArray.getInteger(R.styleable.CustomHorizontalCalendar_numOfDays, 60);
-        mLabel = typedArray.getString(R.styleable.CustomHorizontalCalendar_setLabel);
+        int numberOfDays = typedArray.getInteger(R.styleable.CustomHorizontalCalendar_numOfDays, 60);
+        String label = typedArray.getString(R.styleable.CustomHorizontalCalendar_setLabel);
         mBgResourceId = typedArray.getResourceId(R.styleable.CustomHorizontalCalendar_setBgColor, R.drawable.rect_dark_gray);
         mTextColorResourceId = typedArray.getResourceId(R.styleable.CustomHorizontalCalendar_setTextColor, R.color.dark_gray);
         mSelectedBgResourceId = typedArray.getResourceId(R.styleable.CustomHorizontalCalendar_setSelectedBgColor, R.drawable.rect_sky_blue);
         mSelectedTextColorResourceId = typedArray.getResourceId(R.styleable.CustomHorizontalCalendar_setSelectedTextColor, R.color.white);
-        setCalender(mNoOfDays);
-        setLabel(mLabel);
+        setCalender(numberOfDays);
+        setLabel(label);
         if (typedArray.hasValue(R.styleable.CustomHorizontalCalendar_setLabelColor))
-            mLableTextView.setTextColor(getResources().getColor(typedArray.getResourceId(R.styleable.CustomHorizontalCalendar_setLabelColor, R.color.dark_gray)));
-        mMonthAndDateTextView.setTextColor(getResources().getColor(typedArray.getResourceId(R.styleable.CustomHorizontalCalendar_setMonthColor, R.color.black)));
+            mLableTextView.setTextColor(ContextCompat.getColor(context, typedArray.getResourceId(R.styleable.CustomHorizontalCalendar_setLabelColor, R.color.dark_gray)));
+        mMonthAndDateTextView.setTextColor(ContextCompat.getColor(context, typedArray.getResourceId(R.styleable.CustomHorizontalCalendar_setMonthColor, R.color.black)));
         if (typedArray.hasValue(R.styleable.CustomHorizontalCalendar_setLabelTextSize))
             mLableTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, typedArray.getInteger(R.styleable.CustomHorizontalCalendar_setLabelTextSize, 13));
         if (typedArray.hasValue(R.styleable.CustomHorizontalCalendar_setMonthTextSize))
@@ -146,7 +144,7 @@ public class CustomHorizontalCalendar extends RelativeLayout {
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
             @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 if (recyclerView.getLayoutManager() != null) {
                     View centerView = snapHelper.findSnapView(recyclerView.getLayoutManager());
@@ -159,7 +157,7 @@ public class CustomHorizontalCalendar extends RelativeLayout {
             }
 
             @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 if (recyclerView.getLayoutManager() != null) {
                     View centerView = snapHelper.findSnapView(recyclerView.getLayoutManager());
@@ -179,8 +177,8 @@ public class CustomHorizontalCalendar extends RelativeLayout {
                 if (mHorizontalDateAdapter.mRowIndex == mLinearLayoutManager.findFirstVisibleItemPosition() || mHorizontalDateAdapter.mRowIndex == mLinearLayoutManager.findFirstVisibleItemPosition() + 1 || mHorizontalDateAdapter.mRowIndex == mLinearLayoutManager.findLastVisibleItemPosition() - 1) {
                     mCenterChildPosition = mHorizontalDateAdapter.mRowIndex + 1;
                 } else if (mHorizontalDateAdapter.mRowIndex == mLinearLayoutManager.findLastVisibleItemPosition()) {
-                    if (((LinearLayoutManager) mRecyclerView.getLayoutManager()) != null)
-                        ((LinearLayoutManager) mRecyclerView.getLayoutManager()).scrollToPositionWithOffset(mHorizontalDateAdapter.mRowIndex + 1, 0);
+                    if (mLinearLayoutManager != null)
+                        mLinearLayoutManager.scrollToPositionWithOffset(mHorizontalDateAdapter.mRowIndex + 1, 0);
                 } else {
                     if (mCenterChildPosition >= 2)
                         mRecyclerView.scrollToPosition(mLinearLayoutManager.findLastVisibleItemPosition() + 1);
@@ -201,8 +199,8 @@ public class CustomHorizontalCalendar extends RelativeLayout {
                 if (mHorizontalDateAdapter.mRowIndex == mLinearLayoutManager.findLastVisibleItemPosition() || mHorizontalDateAdapter.mRowIndex == mLinearLayoutManager.findLastVisibleItemPosition() - 1 || mHorizontalDateAdapter.mRowIndex == mLinearLayoutManager.findFirstVisibleItemPosition() + 1) {
                     mCenterChildPosition = mHorizontalDateAdapter.mRowIndex - 1;
                 } else if (mHorizontalDateAdapter.mRowIndex == mLinearLayoutManager.findFirstVisibleItemPosition()) {
-                    if (((LinearLayoutManager) mRecyclerView.getLayoutManager()) != null)
-                        ((LinearLayoutManager) mRecyclerView.getLayoutManager()).scrollToPositionWithOffset(mHorizontalDateAdapter.mRowIndex - 3, 0);
+                    if (mLinearLayoutManager != null)
+                        mLinearLayoutManager.scrollToPositionWithOffset(mHorizontalDateAdapter.mRowIndex - 3, 0);
                 } else {
                     if (mCenterChildPosition <= (mHorizontalDateAdapter.getItemCount() - 3))
                         mRecyclerView.scrollToPosition(mLinearLayoutManager.findFirstVisibleItemPosition() - 1);
@@ -300,14 +298,16 @@ public class CustomHorizontalCalendar extends RelativeLayout {
         return "";
     }
 
-    private  String getMonth(int month) {
+    private String getMonth(int month) {
         String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
         return monthNames[month];
     }
 
     private void setMonthAndYear(DateModel dateModel) {
+        String monthAndYear = "";
         if (dateModel != null)
-            mMonthAndDateTextView.setText(dateModel.month + " " + dateModel.year);
+            monthAndYear = dateModel.month + " " + dateModel.year;
+        mMonthAndDateTextView.setText(monthAndYear);
     }
 
     public void setLabel(String label) {
