@@ -15,15 +15,38 @@
         app:numOfDays="90"
         app:setLabel="@string/label" />
 
-    <TextView
-        android:id="@+id/dateTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="center"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="190dp"
-        android:text="ll" />
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="190dp"
+                  android:orientation="vertical"
+                  android:layout_alignParentBottom="true"
+                  android:layout_gravity="center"
+                  android:layout_centerHorizontal="true"
+                  android:layout_marginTop="10dp">
+
+        <TextView
+                android:id="@+id/dateTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:text="ll" />
+
+        <Button android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:id="@+id/btnEnglish"
+                android:text="English">
+        </Button>
+
+        <Button android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:id="@+id/btnPortuguese"
+                android:text="Portuguese">
+        </Button>
+
+    </LinearLayout>
+
 
 </RelativeLayout>

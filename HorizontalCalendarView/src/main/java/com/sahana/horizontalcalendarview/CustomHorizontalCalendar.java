@@ -21,10 +21,8 @@ import android.widget.TextView;
 
 import com.sahana.horizontalcalendarview.model.DateModel;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.text.DateFormatSymbols;
+import java.util.*;
 
 /**
  * Created by SahanaB on 09/09/18.
@@ -46,6 +44,11 @@ public class CustomHorizontalCalendar extends RelativeLayout {
     protected int mTextColorResourceId;
     protected int mSelectedTextColorResourceId;
     private int mScrollSpeed;
+
+
+    private int mNumberOfDays = -1;
+    private Locale mLocale = null;
+    private DateFormatSymbols mDateFormatSymbols = null;
 
     public void setOnDateSelectListener(OnHorizontalDateSelectListener onHorizontalDateSelectListener) {
         mOnHorizontalDateSelectListener = onHorizontalDateSelectListener;
@@ -86,16 +89,18 @@ public class CustomHorizontalCalendar extends RelativeLayout {
         mRightArrowImageView = findViewById(R.id.rightArrow);
         mLableTextView = findViewById(R.id.labelTextView);
         mMonthAndDateTextView = findViewById(R.id.monthAndDateTextView);
+        setLocale(Locale.getDefault());
         if (attrs == null) return;
+
         TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.CustomHorizontalCalendar, 0, 0);
         mScrollSpeed = typedArray.getInteger(R.styleable.CustomHorizontalCalendar_setScrollSpeed, 30);
-        int numberOfDays = typedArray.getInteger(R.styleable.CustomHorizontalCalendar_numOfDays, 60);
+        mNumberOfDays = typedArray.getInteger(R.styleable.CustomHorizontalCalendar_numOfDays, 60);
         String label = typedArray.getString(R.styleable.CustomHorizontalCalendar_setLabel);
         mBgResourceId = typedArray.getResourceId(R.styleable.CustomHorizontalCalendar_setBgColor, R.drawable.rect_dark_gray);
         mTextColorResourceId = typedArray.getResourceId(R.styleable.CustomHorizontalCalendar_setTextColor, R.color.dark_gray);
         mSelectedBgResourceId = typedArray.getResourceId(R.styleable.CustomHorizontalCalendar_setSelectedBgColor, R.drawable.rect_sky_blue);
         mSelectedTextColorResourceId = typedArray.getResourceId(R.styleable.CustomHorizontalCalendar_setSelectedTextColor, R.color.white);
-        setCalender(numberOfDays);
+        setCalender(mNumberOfDays);
         setLabel(label);
         if (typedArray.hasValue(R.styleable.CustomHorizontalCalendar_setLabelColor))
             mLableTextView.setTextColor(ContextCompat.getColor(context, typedArray.getResourceId(R.styleable.CustomHorizontalCalendar_setLabelColor, R.color.dark_gray)));
@@ -108,9 +113,15 @@ public class CustomHorizontalCalendar extends RelativeLayout {
             mLableTextView.setTypeface(Typeface.createFromAsset(getResources().getAssets(), typedArray.getString(R.styleable.CustomHorizontalCalendar_setLabelFontStyle)));
         if (typedArray.hasValue(R.styleable.CustomHorizontalCalendar_setMonthFontStyle))
             mMonthAndDateTextView.setTypeface(Typeface.createFromAsset(getResources().getAssets(), typedArray.getString(R.styleable.CustomHorizontalCalendar_setMonthFontStyle)));
+
+
+
     }
 
     private void setCalender(int noOfDays) {
+        if (noOfDays < 1)
+            return;
+
         Calendar calendar = Calendar.getInstance();
         Date date = new Date();
         mInputDates = new ArrayList<>();
@@ -139,6 +150,10 @@ public class CustomHorizontalCalendar extends RelativeLayout {
         mRecyclerView.setAdapter(mHorizontalDateAdapter);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
         final SnapHelper snapHelper = new LinearSnapHelper();
+
+        //Caused by: java.lang.IllegalStateException: An instance of OnFlingListener already set.
+        mRecyclerView.setOnFlingListener(null);
+
         snapHelper.attachToRecyclerView(mRecyclerView);
         mRecyclerView.setHorizontalScrollBarEnabled(false);
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -272,35 +287,31 @@ public class CustomHorizontalCalendar extends RelativeLayout {
         void onLayoutClick(int position);
     }
 
+    public void setLocale(Locale locale){
+        this.mLocale = locale;
+        mDateFormatSymbols = new DateFormatSymbols(this.mLocale);
+        setCalender(mNumberOfDays);
+    }
+
+
+
     private String getDayOfWeek(int dayOfWeek) {
-        switch (dayOfWeek) {
-            case 2:
-                return "Mon";
-            case 3:
-                return "Tue";
-
-            case 4:
-                return "Wed";
-
-            case 5:
-                return "Thurs";
-
-            case 6:
-                return "Fri";
-
-            case 7:
-                return "Sat";
-
-            case 1:
-                return "Sun";
-
-        }
-        return "";
+        String[] weekdays = mDateFormatSymbols.getShortWeekdays();
+        return toTitleCase(weekdays[dayOfWeek]);
     }
 
     private String getMonth(int month) {
-        String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-        return monthNames[month];
+        String[] monthNames = mDateFormatSymbols.getMonths();
+        return toTitleCase(monthNames[month]);
+    }
+
+    //format to title ex: (abril to Abril)
+    private static String toTitleCase(String input) {
+        input = input.toLowerCase();
+        char c =  input.charAt(0);
+        String s = new String("" + c);
+        String f = s.toUpperCase();
+        return f + input.substring(1);
     }
 
     private void setMonthAndYear(DateModel dateModel) {
