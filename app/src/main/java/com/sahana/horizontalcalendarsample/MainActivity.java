@@ -10,6 +10,8 @@ import com.sahana.horizontalcalendarview.CustomHorizontalCalendar;
 import com.sahana.horizontalcalendarview.OnHorizontalDateSelectListener;
 import com.sahana.horizontalcalendarview.model.DateModel;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements OnHorizontalDateSelectListener {
@@ -37,6 +39,17 @@ public class MainActivity extends AppCompatActivity implements OnHorizontalDateS
             @Override
             public void onClick(View v) {
                 mCustomHorizontalCalendar.setLocale(new Locale("pt", "BR"));
+                Calendar calendar = Calendar.getInstance(); // this would default to now
+                calendar.add(Calendar.DAY_OF_MONTH, -10);
+                mCustomHorizontalCalendar.setStartDate(calendar.getTime());
+
+                //calendar.add(Calendar.DAY_OF_MONTH, 4);
+                //mCustomHorizontalCalendar.selectDate(calendar.getTime());
+
+                calendar.add(Calendar.DAY_OF_MONTH, 45);
+                mCustomHorizontalCalendar.selectDate(calendar.getTime());
+
+
             }
         });
     }

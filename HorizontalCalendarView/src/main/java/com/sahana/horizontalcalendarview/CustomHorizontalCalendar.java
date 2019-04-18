@@ -23,6 +23,7 @@ import com.sahana.horizontalcalendarview.model.DateModel;
 
 import java.text.DateFormatSymbols;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by SahanaB on 09/09/18.
@@ -49,6 +50,7 @@ public class CustomHorizontalCalendar extends RelativeLayout {
     private int mNumberOfDays = -1;
     private Locale mLocale = null;
     private DateFormatSymbols mDateFormatSymbols = null;
+    private Date mStartDate = new Date();
 
     public void setOnDateSelectListener(OnHorizontalDateSelectListener onHorizontalDateSelectListener) {
         mOnHorizontalDateSelectListener = onHorizontalDateSelectListener;
@@ -118,12 +120,16 @@ public class CustomHorizontalCalendar extends RelativeLayout {
 
     }
 
-    private void setCalender(int noOfDays) {
+    private void setCalender(int noOfDays){
+        setCalender(noOfDays, mStartDate);
+    }
+
+    private void setCalender(int noOfDays, Date date) {
         if (noOfDays < 1)
             return;
 
         Calendar calendar = Calendar.getInstance();
-        Date date = new Date();
+        //Date date = new Date();
         mInputDates = new ArrayList<>();
         mInputDates.clear();
 
@@ -219,6 +225,7 @@ public class CustomHorizontalCalendar extends RelativeLayout {
                 } else {
                     if (mCenterChildPosition <= (mHorizontalDateAdapter.getItemCount() - 3))
                         mRecyclerView.scrollToPosition(mLinearLayoutManager.findFirstVisibleItemPosition() - 1);
+                        mRecyclerView.scrollToPosition(mLinearLayoutManager.findFirstVisibleItemPosition() - 1);
                     if (mCenterChildPosition != 0)
                         mCenterChildPosition = mCenterChildPosition - 1;
                 }
@@ -293,7 +300,36 @@ public class CustomHorizontalCalendar extends RelativeLayout {
         setCalender(mNumberOfDays);
     }
 
+    public void setStartDate(Date date){
+        this.mStartDate = date;
+        setCalender(mNumberOfDays);
+    }
 
+    public void selectDate(Date date){
+        //some bugs happens in the call of this method, for example, if it is an initial or final date, where it can not be centralized
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(mStartDate);
+        calendar.add(Calendar.DAY_OF_MONTH, mNumberOfDays);
+        Date endDate = calendar.getTime();
+
+        boolean dateExists = date.after(mStartDate) && date.before(endDate);
+
+        if (dateExists == false)
+            throw new ArrayIndexOutOfBoundsException("The date does not exist");
+
+        long diff = date.getTime() - mStartDate.getTime();
+        long diffDays = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+
+        diffDays = diffDays - 2;
+
+        mCenterChildPosition = (int) diffDays;
+        mRecyclerView.scrollToPosition((int) diffDays);
+        if (mLayoutClickListener != null)
+            mLayoutClickListener.onLayoutClick(mCenterChildPosition);
+
+        mHorizontalDateAdapter.notifyItemChanged((int) diffDays + 1);
+
+    }
 
     private String getDayOfWeek(int dayOfWeek) {
         String[] weekdays = mDateFormatSymbols.getShortWeekdays();
