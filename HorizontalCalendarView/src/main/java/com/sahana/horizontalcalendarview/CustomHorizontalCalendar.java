@@ -51,6 +51,7 @@ public class CustomHorizontalCalendar extends RelativeLayout {
     private Locale mLocale = null;
     private DateFormatSymbols mDateFormatSymbols = null;
     private Date mStartDate = new Date();
+    private Date mCurrentDate = new Date();
 
     public void setOnDateSelectListener(OnHorizontalDateSelectListener onHorizontalDateSelectListener) {
         mOnHorizontalDateSelectListener = onHorizontalDateSelectListener;
@@ -63,8 +64,11 @@ public class CustomHorizontalCalendar extends RelativeLayout {
                 @Override
                 public void onDateClick(DateModel dateModel) {
                     setMonthAndYear(dateModel);
-                    if (mOnHorizontalDateSelectListener != null)
+                    if (mOnHorizontalDateSelectListener != null){
                         mOnHorizontalDateSelectListener.onDateClick(dateModel);
+                        mCurrentDate = dateModel.date;
+                    }
+
                 }
             });
     }
@@ -141,6 +145,7 @@ public class CustomHorizontalCalendar extends RelativeLayout {
             dateModel.dayOfWeek = getDayOfWeek(calendar.get(Calendar.DAY_OF_WEEK));
             dateModel.month = getMonth(calendar.get(Calendar.MONTH));
             dateModel.year = calendar.get(Calendar.YEAR) + "";
+            dateModel.date = calendar.getTime();
             mInputDates.add(dateModel);
         }
         setData();
@@ -339,6 +344,10 @@ public class CustomHorizontalCalendar extends RelativeLayout {
     private String getMonth(int month) {
         String[] monthNames = mDateFormatSymbols.getMonths();
         return toTitleCase(monthNames[month]);
+    }
+
+    public Date getCurrentDate(){
+        return mCurrentDate;
     }
 
     //format to title ex: (abril to Abril)
