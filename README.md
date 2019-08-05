@@ -18,20 +18,10 @@ Latest version of the library can be found on Maven Central.
 Open your ```build.gradle``` Then, include the library as dependency:
 
 ```    
-implementation 'com.android.support:recyclerview-v7:{yourVersion}'
-implementation 'com.sahana.horizontalcalendarview:HorizontalCalendarView:1.0.2'
+implementation 'com.github.mgpx:HorizontalCalendarSample:1.0.2.3'
+
 ```
 
-# For Maven users
-Add this dependency to your ```pom.xml```:
-```
-<dependency>
-  <groupId>com.sahana.horizontalcalendarview</groupId>
-  <artifactId>HorizontalCalendarView</artifactId>
-  <version>1.0.2</version>
-  <type>pom</type>
-</dependency>
-```
 ## Usage
 
 Please see the ```/HorizontalCalendarSample-app``` app for a more detailed code example of how to use the library.
