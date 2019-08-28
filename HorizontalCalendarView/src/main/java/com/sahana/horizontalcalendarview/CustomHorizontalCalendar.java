@@ -64,11 +64,10 @@ public class CustomHorizontalCalendar extends RelativeLayout {
                 @Override
                 public void onDateClick(DateModel dateModel) {
                     setMonthAndYear(dateModel);
+                    mCurrentDate = dateModel.date;
                     if (mOnHorizontalDateSelectListener != null){
                         mOnHorizontalDateSelectListener.onDateClick(dateModel);
-                        mCurrentDate = dateModel.date;
                     }
-
                 }
             });
     }
